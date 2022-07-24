@@ -1,11 +1,11 @@
 // g++ RecvFile.cpp -o RecvFile -lws2_32
-#include<WinSock2.h>
+// #include<WinSock2.h>
 #include<iostream>
 #include<regex>
-#pragma comment(lib,"ibwsock32.a")
-# pragma warning(disable:4996)
-
-#define PORT 8000
+// #pragma comment(lib,"ibwsock32.a")
+// # pragma warning(disable:4996)
+#include "Server.h"
+using namespace std;
 
 int main(int argc, char* argv[]) {
     //.. 
@@ -17,9 +17,6 @@ int main(int argc, char* argv[]) {
     int bufferSize = 512;
 
     //..
-    if (argc > 1) {
-        target = (std::string) argv[1];
-    }    
 
     for (size_t i=1; i<argc; i++) {
         std::string paramToSearch = argv[i];
@@ -37,8 +34,15 @@ int main(int argc, char* argv[]) {
         
     }
     
-    std::cout << "Program name:" << argv[0] <<"\n";
-    std::cout << "out: " << out << "\n";
+    cout << "Program name:" << argv[0] <<"\n";
+    cout << "out: " << out << "\n";
+    
+    Server server(target);
+    server._connect();
+    char data[] = "Hello Im Server";
+    server.sendData(data);
+    cout << server.receiveData() << "\n";
 
+	system("PAUSE");
     return 0;
 }

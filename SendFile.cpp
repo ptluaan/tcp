@@ -5,15 +5,18 @@
 #pragma comment(lib,"ibwsock32.a")
 # pragma warning(disable:4996)
 
-#define PORT 8000
+#include "client.h"
+
+
+using namespace std;
 
 int main(int argc, char* argv[]) {
     //.. 
-    std::regex pattern("--(.*)=(.*)");
+    regex pattern("--(.*)=(.*)");
     
     //set default command line arguments
-    std::string target = "127.0.0.1"; 
-    std::string path   ="./";
+    string target = "127.0.0.1"; 
+    string path   ="./";
     int bufferSize = 512;
 
     //..
@@ -42,11 +45,17 @@ int main(int argc, char* argv[]) {
         
     }
     
-    std::cout << "Program name:" << argv[0] <<"\n";
-    std::cout << "target: " << target << "\n";
-    std::cout << "path: " << path << "\n";
-    std::cout << "buffer size: " << bufferSize << "\n";
+    cout << "Program name:" << argv[0] <<"\n";
+    cout << "target: " << target << "\n";
+    cout << "path: " << path << "\n";
+    cout << "buffer size: " << bufferSize << "\n";
 
+    Client client(target);
+    client._connect();
+    cout << client.receiveData() << "\n";
+    char data[] = "Hello Im client";
+    client.sendData(data);
 
+    system("PAUSE");
     return 0;
 }
