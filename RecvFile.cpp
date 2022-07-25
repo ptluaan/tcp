@@ -42,6 +42,7 @@ int main(int argc, char* argv[]) {
     char data[] = "Hello Im Server";
     server.sendData(data);
     cout << server.receiveData() << "\n";
+    cout << server.receiveData() << "\n";
 
 	system("PAUSE");
     return 0;
