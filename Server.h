@@ -47,10 +47,10 @@ Server::Server(string target) {
 	int wsaStartup = WSAStartup(MAKEWORD(2, 2), &winSocketData);
 	if (wsaStartup != 0)
 	{
-		cout << "wsaStartup fail" << endl;
+		cout << "wsaStartup fail" << "\n";
         exit(0);
 	}
-	cout << "wsaStartup success" << endl;
+	// cout << "wsaStartup success" << "\n";
     
 	//Fill tcpRecvFileAdd
 
@@ -66,7 +66,7 @@ void Server::_connect(){
 	tcpRecvFileSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (tcpRecvFileSocket == INVALID_SOCKET)
 	{
-		cout << "TCP Server Socket Creation failed" << WSAGetLastError() << endl;
+		cout << "TCP Server Socket Creation failed" << WSAGetLastError() << "\n";
         exit(0);
 	}
 
@@ -78,16 +78,16 @@ void Server::_connect(){
 		cout << "blind fail";
 
 	}
-	cout << "Bindsuccess" << endl;
+	// cout << "Bindsuccess" << "\n";
 
 	// Listen 
 
 	int flagListen = listen(tcpRecvFileSocket, 2);
 	if (flagListen == SOCKET_ERROR)
 	{
-		cout << "Listen fail";
+		cout << "Listen fail ";
 	}
-	cout << "Listen success" << endl;
+	// cout << "Listen success" << "\n";
 
 	// Accept
 
@@ -96,7 +96,7 @@ void Server::_connect(){
 	{
 		cout << "Accept fail";
 	}
-	cout << "Accept success" << endl;
+	cout << "Accept success" << "\n";
 }
 
 void Server::setBufferSize(int newBufferSize){
@@ -113,7 +113,7 @@ void Server::sendData(char *data){
 	{
 		cout << "Send fail";
 	}
-	cout << "Send success" << endl;
+	// cout << "Send success" << "\n";
 
 }
 
@@ -125,7 +125,7 @@ char* Server::receiveData(){
 	{
 		cout << "Recv fail";
 	}
-	cout << "Recv success" << endl;
+	// cout << "Recv success" << "\n";
 	
 	return recvBuffer;
 }
@@ -140,5 +140,5 @@ Server::~Server(){
 		cout << "Close fail"; 
 		exit(0);
 	}
-	cout << "Clean success" << endl;
+	cout << "Clean success" << "\n";
 }

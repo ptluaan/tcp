@@ -2,8 +2,11 @@
 // #include<WinSock2.h>
 #include<iostream>
 #include<regex>
-// #pragma comment(lib,"ibwsock32.a")
-// # pragma warning(disable:4996)
+#include<fstream>
+#pragma comment(lib,"ibwsock32.a")
+# pragma warning(disable:4996)
+#include <algorithm>
+
 #include "Server.h"
 using namespace std;
 
@@ -34,16 +37,50 @@ int main(int argc, char* argv[]) {
         
     }
     
-    cout << "Program name:" << argv[0] <<"\n";
     cout << "out: " << out << "\n";
     
+    cout << "\n\n TCP \n\n";
     Server server(target);
     server._connect();
-    char data[] = "Hello Im Server";
-    server.sendData(data);
-    cout << server.receiveData() << "\n";
-    cout << server.receiveData() << "\n";
+    
+    // get buffer size
+    bufferSize = stoi(server.receiveData());
+    
+    // get file name
+    string fileName = (string) server.receiveData();
+    cout << "Buffer size: " << bufferSize <<  "\n";
 
+    // get file size
+    __int64 fileSize = stoll(server.receiveData());
+    __int64 remain = fileSize;
+
+    server.setBufferSize(bufferSize);
+
+    ofstream file ((out+fileName).c_str(), ios::out | ios::binary);
+
+    cout << "Recv " << fileName << ":  000%";
+
+    while (true){
+        char buffer[bufferSize];
+        strcpy(buffer, server.receiveData());
+        if (strcmp(buffer,"~END") == 0){
+            break;
+        }
+        file.write(buffer, min(remain, 1ll*bufferSize));
+        
+        remain -= bufferSize;
+        if (remain <= 0ll) break;
+        long double per = (long double)(fileSize - remain)/fileSize * 100.0;
+        int intPer = (int) per;
+
+        cout << "\b\b\b\b" << intPer/100 << (intPer%100)/10 << intPer%10 << "%";
+        
+    }
+
+    cout << "\b\b\b\b100%";
+    cout << "\nRecv " << fileName << " success\n";
+  
+    file.close();
 	system("PAUSE");
     return 0;
 }

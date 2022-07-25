@@ -37,20 +37,20 @@ Client::Client(string target){
 	int wsaStartup = WSAStartup(MAKEWORD(2, 2), &winSocketData);
 	if (wsaStartup != 0)
 	{
-		cout << "wsaStartup fail" << endl;
+		cout << "wsaStartup fail" << "\n";
         exit(0);
 	}
-	cout << "WSAStartup success" << endl;
+	// cout << "WSAStartup success" << "\n";
 
 	//Create socket
 
 	tcpSendFileSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (tcpSendFileSocket == INVALID_SOCKET)
 	{
-		cout << "create socket fail" << WSAGetLastError() << endl;
+		cout << "create socket fail" << WSAGetLastError() << "\n";
         exit(0);
 	}
-	cout << "socket success";
+	// cout << "socket success";
 	
     // Fill tcpRecvFileAdd
 
@@ -68,7 +68,7 @@ void Client::_connect(){
 		cout << "Connect fail " ;
         exit(0);
 	}
-	cout << "Connect success" << endl;
+	cout << "Connect success" << "\n";
 }
 
 char* Client::receiveData(){
@@ -91,7 +91,7 @@ void Client::sendData(char *data){
 	{
 		cout << "send fail";
 	}
-	cout << "send success" << endl;
+	// cout << "send success" << "\n";
 }
 
 void Client::setBufferSize(int newBufferSize){
@@ -111,6 +111,6 @@ Client::~Client(){
 		cout << "close socket fail";
 		exit(0);
 	}
-	cout << "close socket success" << endl;
+	cout << "close socket success" << "\n";
 
 }
