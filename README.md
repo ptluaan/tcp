@@ -21,7 +21,7 @@ Need 2 command line:
 Step1: in command line 1:   ```RecvFile --out=< out >```
 
 
-Step2: in command line 2:  ```SendFile < target > --path=< path > --buffer-size=< size >```
+Step2: in command line 2:  ```SendFile < target > --path=< path > --buffer_size=< size >```
 
 * ```buffer-size <= 512```
 
@@ -29,7 +29,7 @@ EX:
 
  ```RecvFile --out=./```
  
- ```SendFile 127.0.0.1 --path=C:/data/demo.txt --buffer-size=512```
+ ```SendFile 127.0.0.1 --path=C:/data/demo.txt --buffer_size=512```
 
 
 
